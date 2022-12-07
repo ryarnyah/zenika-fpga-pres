@@ -1,0 +1,17 @@
+[tasks]
+top
+
+[options]
+mode prove
+depth 4
+
+[engines]
+smtbmc z3
+
+[script]
+top: read -formal -sv top.sv
+top: prep -top top
+
+[files]
+top: src/main/top.sv
+top: src/main/slow_clk.sv

@@ -1,0 +1,7 @@
+verible:
+  format:
+    enabled: true
+    path: "verible-verilog-format"
+    args:
+      - --port_declarations_alignment
+      - align

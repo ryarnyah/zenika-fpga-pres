@@ -1,0 +1,26 @@
+[tasks]
+wb_led_bar
+wb_memory
+wb_uart
+
+[options]
+mode prove
+depth 4
+
+[engines]
+smtbmc z3
+
+[script]
+wb_led_bar: read -formal -sv wb_led_bar.sv
+wb_led_bar: prep -top wb_led_bar
+wb_memory: read -formal -sv wb_memory.sv
+wb_memory: prep -top wb_memory
+wb_uart: read -formal -sv wb_uart.sv
+wb_uart: prep -top wb_uart
+
+[files]
+wb_led_bar: src/main/wb_led_bar.sv
+wb_memory: src/main/wb_memory.sv
+wb_memory: firmware.hex src/firmware/empty.hex
+wb_uart: src/main/wb_uart.sv
+wb_uart: src/main/fifo.sv

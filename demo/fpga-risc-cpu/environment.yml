@@ -1,0 +1,21 @@
+name: xc7
+channels:
+  - litex-hub
+  - defaults
+dependencies:
+  - litex-hub::symbiyosys=0.0_74_g091222b
+  - litex-hub::openfpgaloader=0.9.1_9_gd4a59bd
+  - litex-hub::prjxray-tools=0.1_3015_gae546d6b
+  - litex-hub::gcc-riscv32-elf-newlib=10.1.0
+  - litex-hub::prjxray-db=0.0_257_g0a0adde
+  - litex-hub::vtr-optimized=8.0.0_5699_g25e723a24
+  - litex-hub::yosys=0.19_21_ga82eff2e2
+  - litex-hub::symbiflow-yosys-plugins=1.0.0_7_1027_g52cdcc4
+  - make
+  - lxml
+  - simplejson
+  - intervaltree
+  - git
+  - pip
+  - pip:
+    - -r requirements.txt
