@@ -1,0 +1,44 @@
+#    -*- mode: org -*-
+#+REVEAL_ROOT: ./vendor/reveal.js
+#+OPTIONS: reveal_center:t reveal_progress:t reveal_history:t reveal_control:t
+#+OPTIONS: reveal_mathjax:t reveal_rolling_links:t reveal_keyboard:t reveal_overview:t num:nil
+#+OPTIONS: reveal_width:1420 reveal_height:800
+#+OPTIONS: toc:0
+#+OPTIONS: timestamp:nil
+#+OPTIONS: reveal_global_footer:t
+#+REVEAL_MIN_SCALE: 0.7
+#+REVEAL_MAX_SCALE: 3.5
+#+REVEAL_HLEVEL: 1
+#+REVEAL_TRANS: linear
+#+REVEAL_THEME: ./css/slides.css
+
+#+REVEAL_TITLE_SLIDE: <div class="page-title"><h1 id="title" style="width: 900px">FPGA? FPG Quoi?</h1><h2>MORVAN Pierre</h2></div>
+#+REVEAL_SLIDE_FOOTER: <footer class="copyright">Zenika @2022</footer>
+#+REVEAL_HTML: <link href="css/slides.css" rel="stylesheet">
+#+REVEAL_HTML: <title>FPGA? FPG Quoi?</title>
+
+* WHO AM I?
+  #+ATTR_HTML: :style border-radius: 50%; margin: auto; display: block;
+  [[./assets/pierre_znk.png]]
+  #+ATTR_HTML: :style text-align: center
+  Pierre Morvan @Zenika Paris
+  #+ATTR_HTML: :style text-align: center
+  @ryarnyah
+  #+ATTR_HTML: :style text-align: center
+  "Du Java mais pas que..."
+* FPGA?
+** USE-CASES
+* A CLOCK? LIKE MY WATCH?
+** SIGNAL
+* FPGA ARCHITECTURE
+** LUT
+* DEMO
+   #+ATTR_HTML: :class questions
+  [[./assets/Programming-pana.svg]]
+* CPU?
+* DEMO
+   #+ATTR_HTML: :class questions
+  [[./assets/Programming-pana.svg]]
+* MERCI
+   #+ATTR_HTML: :class questions
+  [[./assets/Questions-pana.svg]]
