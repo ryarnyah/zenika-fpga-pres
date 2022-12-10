@@ -13,7 +13,6 @@
 #+REVEAL_THEME: ./css/slides.css
 
 #+REVEAL_TITLE_SLIDE: <div class="page-title"><h1 id="title" style="width: 900px">FPGA? FPG Quoi?</h1><h2>MORVAN Pierre</h2></div>
-#+REVEAL_SLIDE_FOOTER: <footer class="copyright">Zenika @2022</footer>
 #+REVEAL_HTML: <link href="css/slides.css" rel="stylesheet">
 #+REVEAL_HTML: <title>FPGA? FPG Quoi?</title>
 
@@ -27,18 +26,108 @@
   #+ATTR_HTML: :style text-align: center
   "Du Java mais pas que..."
 * FPGA?
+  #+ATTR_HTML: :class questions
+  [[./assets/FPGAs-Icon_4x.png]]
 ** USE-CASES
+   FPGA (Field Programmable Gate Array)
+   #+ATTR_REVEAL: :frag (appear)
+   * Prototypage microcontroleur
+   * Composants évolutifs (compression vidéo, etc)
+   * Faible production de composants
+   * Composant à usage spécifique (co-processeur AES, etc)
+   * Une très grande quantité d'IO <-> parralellisation de traitements possible.
+   * Utilisation dans des contextes spécifiques d'IOT (microcontroleur avec TCP intégré)
+   * Cartes réseau TLS (oui ça existe)
+   * Processeur spécifique Java (Oui il y en a aussi)
+** ASICS VS FPGA
+   ASICS (Application Specific Integrated Circuit)
+   #+ATTR_REVEAL: :frag (appear)
+   * Plus couteux <-> nécessite souvent une chaine de production dédiée.
+   * Moins couteux à l'unité.
+   * Upgrade impossible ou doit être pris en compte lors du design <=> implique une logique similaire aux FPGAs.
+   * Plus perfomants (pas de LUTs, placement efficace, etc).
+   * Votre CPU en est un.
+   #+BEGIN_NOTES
+   Si vous regardez un peu litérature vous vérez surement le terme ASICS...
+   Un composant existant reproduit avec un FPGA sera toujours moins cher que le FPGA necessaire.
+   #+END_NOTES
+** Exemple de projets FPGA: MisTER
+   #+ATTR_HTML: :class questions
+   [[./assets/MISTER_FPGA_Logo.png]]
+   * Retro-gaming reproduisants les CPUs/GPUs/FPUs
+   * Utilisation d'un matériel "cheap"
+   * Permet de reproduire les "bugs" nécessaires à certains jeux.
 * A CLOCK? LIKE MY WATCH?
 ** SIGNAL
 * FPGA ARCHITECTURE
+  [[./assets/Figure-A-A-three-input-lookup-table-3-LUT-FPGA-A-programmable-interconnect-wires-the.png]]
+  #+BEGIN_NOTES
+  * Composant stateless <=> necessite une mémoire flash et une reprogrammation à chaque boot. => Bitstream.
+  * Composé de LUT (Lookup Tables), MUXers, Block Ram (BRAM), liens programmables.
+  * Implémentation spcifique au constructeur. bitstream aussi spécifique.
+  * Utilisation des outils du constructeur pour le programmer (Xilinx, etc) => 130 Go necessaires!!!
+  #+END_NOTES
+** MUX
+   [[./assets/multiplexer.png]]
+   * Permet de selectionner des Inputs en fonction d'un signal.
 ** LUT
+   [[./assets/ljnz7.png]]
+   * Composant permettant de reproduire le comportement de plusieurs éléments dont des portes AND, OR, etc.
+   * Coeur même de votre FPGA.
+   #+ATTR_HTML: :style margin-left: auto; margin-right: auto;
+  | A | B | A AND B | A  OR B | A XOR B |
+  |---+---+---------+---------+---------|
+  | 0 | 0 |       0 |       0 |       0 |
+  | 0 | 1 |       0 |       1 |       1 |
+  | 1 | 0 |       0 |       1 |       1 |
+  | 1 | 1 |       1 |       1 |       0 |
+* DEMO: BLINKY
+  Ici nous allons juste implémenter un module blinky similaire à celui-ci et l'uploader sur notre FPGA.
+
+  Pour le "compiler" nous allons utiliser la suite fournie avec F4PGA (le GCC du FPGA).
+  #+BEGIN_SRC verilog
+     module top (
+         input logic CLK,
+         input logic RST,
+         output logic [15:0] LEDS
+     );
+         logic [15:0] counter = 0;
+         always @(posedge CLK) begin
+             counter <= counter + 1;
+             if (RST) counter <= 0;
+         end
+         assign LEDS = counter;
+    endmodule
+  #+END_SRC
 * DEMO
    #+ATTR_HTML: :class questions
   [[./assets/Programming-pana.svg]]
 * CPU?
+   #+ATTR_HTML: :style width: 40%;
+  [[./assets/simple-CPU.png]]
+** RISC vs CISC
+   * Taille variable ou non des instructions.
+   * Complexité des instructions.
+   * Intel transforme en interne les instructions CISC en instructions RISC!
+   #+ATTR_HTML: :style margin-left: auto; margin-right: auto;
+   | RISC (Reduced Instruction Set Computer) | CISC (Complex Instruction Set Computer) |
+   |-----------------------------------------+-----------------------------------------|
+   | PowerPC                                 | x86                                     |
+   | MIPS                                    |                                         |
+   | SPARC                                   |                                         |
+   | ARM                                     |                                         |
+* DEMO: Un CPU RISC
+   Dans cette demo nous utiliserons un CPU RISC implémentant la norme RV32i (la plus simple) que j'ai développé pour l'occasion :)
+   * CPU 32 bits.
+   * Pas de supports des nombres flottants.
+   * SOC (System on chip) avec des LEDs, une mémoire RAM de 4k, de l'UART (port série).
+   * Utilisation d'un bus Wishbone pour l'intercommunication entre les composants.
+   * Loin d'être perfomant!
+   * Il y a plus que surements des bugs!
+   * Mais on va voir ensemble que ça marche et comment j'y suis arrivé :)
 * DEMO
    #+ATTR_HTML: :class questions
-  [[./assets/Programming-pana.svg]]
+   [[./assets/Programming-pana.svg]]
 * MERCI
    #+ATTR_HTML: :class questions
   [[./assets/Questions-pana.svg]]
