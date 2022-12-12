@@ -8,9 +8,8 @@ binfile = argv[1]
 with open(binfile, "rb") as f:
     bindata = f.read()
 size = bytearray(len(bindata).to_bytes(4, 'big'))
-print(len(bindata))
 
-def compute_crc8_atm(datagram, initial_value = 0xff):
+def compute_crc8_atm(datagram, initial_value=0xff):
     crc = initial_value
     # Iterate bytes in data
     for byte in datagram:
@@ -24,22 +23,21 @@ def compute_crc8_atm(datagram, initial_value = 0xff):
             byte = byte >> 1
     return crc
 
+
 class ReadThread(threading.Thread):
     def __init__(self, ser: serial.Serial):
         threading.Thread.__init__(self)
         self.ser = ser
         self.running = True
-    
+
     def run(self):
         while self.running:
             print(ser.readline())
 
+crc = compute_crc8_atm(bindata)
 with serial.Serial('/dev/ttyUSB1', 115200, timeout=1) as ser:
     res = b''
-#    while b'Waiting for user program size...\n' not in res:
-#        res = ser.readline()
-#        print(res)
-    print('send {} bytes'.format(size))
+    print('[SENDER] send {} bytes'.format(int.from_bytes(size, 'big')))
     ser.write(size)
     ser.flush()
     time.sleep(0.5)
@@ -51,8 +49,12 @@ with serial.Serial('/dev/ttyUSB1', 115200, timeout=1) as ser:
     rt = ReadThread(ser)
     rt.start()
 
+    # Write program
+    print('[SENDER] Write program data')
     ser.write(bindata)
-    ser.write(compute_crc8_atm(bindata).to_bytes(1, 'big'))
+    print('[SENDER] write CRC {}'.format(crc))
+    # Write CRC
+    ser.write(crc.to_bytes(1, 'big'))
     time.sleep(5)
 
     rt.running = False
