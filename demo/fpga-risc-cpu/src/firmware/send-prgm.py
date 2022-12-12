@@ -36,24 +36,23 @@ class ReadThread(threading.Thread):
 
 with serial.Serial('/dev/ttyUSB1', 115200, timeout=1) as ser:
     res = b''
-    while b'Waiting for user program size\n' not in res:
-        res = ser.readline()
-        print(res)
+#    while b'Waiting for user program size...\n' not in res:
+#        res = ser.readline()
+#        print(res)
     print('send {} bytes'.format(size))
     ser.write(size)
     ser.flush()
     time.sleep(0.5)
 
     res = b''
-    while b'Waiting for user program\n' not in res:
+    while b'Waiting for user program...\n' not in res:
         res = ser.readline()
         print(res)
     rt = ReadThread(ser)
     rt.start()
 
     ser.write(bindata)
-    ser.write(compute_crc8_atm(bindata))
-    
+    ser.write(compute_crc8_atm(bindata).to_bytes(1, 'big'))
     time.sleep(5)
 
     rt.running = False
