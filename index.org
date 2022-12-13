@@ -47,6 +47,8 @@
    * Utilisation dans des contextes spécifiques d'IOT (microcontroleur avec TCP intégré)
    * Cartes réseau TLS (oui ça existe)
    * Processeur spécifique Java (Oui il y en a aussi)
+   * Acceleration de certaines partie de code (ex en Java avec TornadoVM)
+   * Pourquoi pas un CPU orienté WASM? :)
    #+BEGIN_NOTES
    Dans le cas d'une production faible => Trop couteux de faire de l'ASICS.
    #+END_NOTES
@@ -84,20 +86,34 @@
   * Implémentation spcifique au constructeur. bitstream aussi spécifique.
   * Utilisation des outils du constructeur pour le programmer (Xilinx, etc) => 130 Go necessaires!!!
   #+END_NOTES
-** MUX
-   [[./assets/multiplexer.png]]
-   * Permet de selectionner des Inputs en fonction d'un signal.
 ** LUT
    [[./assets/ljnz7.png]]
    * Composant permettant de reproduire le comportement de plusieurs éléments dont des portes AND, OR, etc.
    * Coeur même de votre FPGA.
    #+ATTR_HTML: :style margin-left: auto; margin-right: auto;
-  | A | B | A AND B | A  OR B | A XOR B |
-  |---+---+---------+---------+---------|
-  | 0 | 0 |       0 |       0 |       0 |
-  | 0 | 1 |       0 |       1 |       1 |
-  | 1 | 0 |       0 |       1 |       1 |
-  | 1 | 1 |       1 |       1 |       0 |
+   | A | B | A AND B | A  OR B | A XOR B |
+   |---+---+---------+---------+---------|
+   | 0 | 0 |       0 |       0 |       0 |
+   | 0 | 1 |       0 |       1 |       1 |
+   | 1 | 0 |       0 |       1 |       1 |
+   | 1 | 1 |       1 |       1 |       0 |
+   #+BEGIN_NOTES
+   D-type flip-flop:
+   #+END_NOTES
+** MUX
+   [[./assets/multiplexer.png]]
+   * Permet de selectionner des Inputs en fonction d'un signal.
+** D Flip-flop
+   #+ATTR_HTML: :style margin-left: auto; margin-right: auto; max-width: 20%;
+   [[./assets/flip-flop.png]]
+   * Permet de stocker des données.
+   #+ATTR_HTML: :style margin-left: auto; margin-right: auto;
+   | CLK | D | Q                 | ~Q                |
+   |-----+---+-------------------+-------------------|
+   |   0 | 0 | Pas de changement | Pas de changement |
+   |   0 | 1 | Pas de changement | Pas de changement |
+   |   1 | 0 | 0                 | 1                 |
+   |   1 | 1 | 1                 | 0                 |
 ** COMPILATION?
    #+ATTR_HTML: :style margin-left: auto; margin-right: auto; max-width: 40%;
    [[./assets/xilinx.png]]
@@ -112,13 +128,16 @@
    #+BEGIN_NOTES
    On parlera plus de synthétisation.
    S'effectue en plusieures phases dont le placement, route, synthese, etc.
+   Plusieurs 10aines de Go d'outils! Xilinx necessite ~130Go!!!
    #+END_NOTES
 ** ET LES TESTS?
-   Mais je croyais que "tester c'est douter"?
+   #+ATTR_HTML: :style margin-left: auto; margin-right: auto; max-width: 25%;
+   [[./assets/tester-douter.jpg]]
    #+ATTR_REVEAL: :frag (appear)
-   #+ATTR_HTML: :style color: red; font-size: 2em;
-   Douter sur du hardware c'est juste du suicide!
+   #+ATTR_HTML: :style color: red; font-size: 2em; text-align: center;
+   DOUTER SUR DU HARDWARE C'EST JUSTE DU SUICIDE!
    #+BEGIN_NOTES
+   Mais je croyais que "tester c'est douter"?
    Pas de debugger, etc
    #+END_NOTES
 ** ET LES TESTS?
