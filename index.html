@@ -20,10 +20,10 @@
 <title>FPGA? FPG Quoi?</title>
 
 <section>
-<section id="slide-org05f0624">
-<h2 id="org05f0624">WHO AM I?</h2>
+<section id="slide-org4b9cadb">
+<h2 id="org4b9cadb">WHO AM I?</h2>
 
-<div id="org3ad036b" class="figure">
+<div id="org1f79613" class="figure">
 <p><img src="./assets/pierre_znk.png" alt="pierre_znk.png" style="border-radius: 50%; margin: auto; display: block;" />
 </p>
 </div>
@@ -36,59 +36,86 @@ Pierre Morvan @Zenika Paris
 <p style="text-align: center">
 "Du Java mais pas que&#x2026;"
 </p>
+<p style="text-align: center">
+Par contre je ne suis pas un developpeur hardware non plus!
+</p>
 </section>
-</section>
-<section>
-<section id="slide-orgf9d1222">
-<h2 id="orgf9d1222">FPGA?</h2>
+<section id="slide-org5cf0820">
+<h3 id="org5cf0820">JE NE VAIS PAS VOUS PARLER DE ça!</h3>
 
-<div id="org93cf5c2" class="figure">
-<p><img src="./assets/FPGAs-Icon_4x.png" alt="FPGAs-Icon_4x.png" class="questions" />
+<div id="orga242922" class="figure">
+<p><img src="./assets/cold-solder-joint2.jpg" alt="cold-solder-joint2.jpg" class="questions" />
 </p>
 </div>
 </section>
-<section id="slide-orgbfcde1f">
-<h3 id="orgbfcde1f">USE-CASES</h3>
-<p>
-FPGA (Field Programmable Gate Array)
+<section id="slide-orgbe99210">
+<h3 id="orgbe99210">NI DE ça!</h3>
+
+<div id="org77c0246" class="figure">
+<p><img src="./assets/breadboard_w_arduino_sm.jpg" alt="breadboard_w_arduino_sm.jpg" class="questions" />
 </p>
+</div>
+</section>
+</section>
+<section>
+<section id="slide-orgd71564a">
+<h2 id="orgd71564a">FPGA (Field Programmable Gate Array)?</h2>
+
+<div id="org709662e" class="figure">
+<p><img src="./assets/Xilinx_XC7A35T.jpg" alt="Xilinx_XC7A35T.jpg" class="questions" />
+</p>
+</div>
+</section>
+<section id="slide-orga2a20d4">
+<h3 id="orga2a20d4">USE-CASES (un subset)</h3>
+
+<div id="org9061f02" class="figure">
+<p><img src="./assets/FPGAs-Icon_4x.png" alt="FPGAs-Icon_4x.png" style="max-width: 20%; margin-left: auto; margin-right: auto;" />
+</p>
+</div>
+
 <ul>
 <li class="fragment appear">Prototypage microcontroleur</li>
-<li class="fragment appear">Composants évolutifs (compression vidéo, etc)</li>
-<li class="fragment appear">Faible production de composants</li>
-<li class="fragment appear">Composant à usage spécifique (co-processeur AES, etc)</li>
-<li class="fragment appear">Une très grande quantité d'IO &lt;-&gt; parralellisation de traitements possible.</li>
+<li class="fragment appear">Composant à usage spécifique (co-processeur AES, compression vidéo, faible production de composants, etc)</li>
+<li class="fragment appear">Une très grande quantité d'IO &lt;=&gt; parralellisation de traitements possible.</li>
 <li class="fragment appear">Utilisation dans des contextes spécifiques d'IOT (microcontroleur avec TCP intégré)</li>
 <li class="fragment appear">Cartes réseau TLS (oui ça existe)</li>
 <li class="fragment appear">Processeur spécifique Java (Oui il y en a aussi)</li>
 
 </ul>
+<aside class="notes">
+<p>
+Dans le cas d'une production faible =&gt; Trop couteux de faire de l'ASICS.
+</p>
+
+</aside>
 </section>
-<section id="slide-org6ccecd2">
-<h3 id="org6ccecd2">ASICS VS FPGA</h3>
+<section id="slide-orgfea68e9">
+<h3 id="orgfea68e9">ASICS VS FPGA</h3>
 <p>
 ASICS (Application Specific Integrated Circuit)
 </p>
 <ul>
+<li class="fragment appear">Votre CPU en est un.</li>
 <li class="fragment appear">Plus couteux &lt;-&gt; nécessite souvent une chaine de production dédiée.</li>
 <li class="fragment appear">Moins couteux à l'unité.</li>
 <li class="fragment appear">Upgrade impossible ou doit être pris en compte lors du design &lt;=&gt; implique une logique similaire aux FPGAs.</li>
 <li class="fragment appear">Plus perfomants (pas de LUTs, placement efficace, etc).</li>
-<li class="fragment appear">Votre CPU en est un.</li>
 
 </ul>
 <aside class="notes">
 <p>
 Si vous regardez un peu litérature vous vérez surement le terme ASICS&#x2026;
 Un composant existant reproduit avec un FPGA sera toujours moins cher que le FPGA necessaire.
+Upgrade impossible =&gt; Dans ces cas la on trouvera souvent un co-processeur FPGA.
 </p>
 
 </aside>
 </section>
-<section id="slide-org23c4cf4">
-<h3 id="org23c4cf4">Exemple de projets FPGA: MisTER</h3>
+<section id="slide-orge40563e">
+<h3 id="orge40563e">Pour les accros du retro-gaming: MisTER</h3>
 
-<div id="orgf49e409" class="figure">
+<div id="org1c70977" class="figure">
 <p><img src="./assets/MISTER_FPGA_Logo.png" alt="MISTER_FPGA_Logo.png" class="questions" />
 </p>
 </div>
@@ -101,20 +128,36 @@ Un composant existant reproduit avec un FPGA sera toujours moins cher que le FPG
 </section>
 </section>
 <section>
-<section id="slide-orgf2b54ac">
-<h2 id="orgf2b54ac">A CLOCK? LIKE MY WATCH?</h2>
-<div class="outline-text-2" id="text-orgf2b54ac">
+<section id="slide-org0131f27">
+<h2 id="org0131f27">ET C'EST QUOI UN SIGNAL?</h2>
+
+<div id="org0d4f7ad" class="figure">
+<p><img src="./assets/sample_sentence-1.png" alt="sample_sentence-1.png" style="max-width: 90%;" />
+</p>
 </div>
 </section>
-<section id="slide-org09482a4">
-<h3 id="org09482a4">SIGNAL</h3>
+<section id="slide-orgbd3ebf0">
+<h3 id="orgbd3ebf0">A CLOCK? LIKE MY WATCH?</h3>
+
+<div id="org6a9b9db" class="figure">
+<p><img src="./assets/GTKwave.png" alt="GTKwave.png" />
+</p>
+</div>
+</section>
+<section id="slide-org12981e5">
+<h3 id="org12981e5">A CLOCK? LIKE MY WATCH?</h3>
+
+<div id="org1bc5f39" class="figure">
+<p><img src="./assets/domain.png" alt="domain.png" />
+</p>
+</div>
 </section>
 </section>
 <section>
-<section id="slide-org594463c">
-<h2 id="org594463c">FPGA ARCHITECTURE</h2>
+<section id="slide-org3ce293c">
+<h2 id="org3ce293c">FPGA ARCHITECTURE</h2>
 
-<div id="orgd5d3bcb" class="figure">
+<div id="org3c351e9" class="figure">
 <p><img src="./assets/Figure-A-A-three-input-lookup-table-3-LUT-FPGA-A-programmable-interconnect-wires-the.png" alt="Figure-A-A-three-input-lookup-table-3-LUT-FPGA-A-programmable-interconnect-wires-the.png" />
 </p>
 </div>
@@ -129,10 +172,10 @@ Un composant existant reproduit avec un FPGA sera toujours moins cher que le FPG
 
 </aside>
 </section>
-<section id="slide-orgc17627e">
-<h3 id="orgc17627e">MUX</h3>
+<section id="slide-org86a5365">
+<h3 id="org86a5365">MUX</h3>
 
-<div id="org13328ec" class="figure">
+<div id="orgdea532f" class="figure">
 <p><img src="./assets/multiplexer.png" alt="multiplexer.png" />
 </p>
 </div>
@@ -141,10 +184,10 @@ Un composant existant reproduit avec un FPGA sera toujours moins cher que le FPG
 
 </ul>
 </section>
-<section id="slide-org9dbc010">
-<h3 id="org9dbc010">LUT</h3>
+<section id="slide-orgc8b7f0b">
+<h3 id="orgc8b7f0b">LUT</h3>
 
-<div id="org50a3550" class="figure">
+<div id="orgb62b5e0" class="figure">
 <p><img src="./assets/ljnz7.png" alt="ljnz7.png" />
 </p>
 </div>
@@ -211,10 +254,132 @@ Un composant existant reproduit avec un FPGA sera toujours moins cher que le FPG
 </tbody>
 </table>
 </section>
+<section id="slide-org33cb260">
+<h3 id="org33cb260">COMPILATION?</h3>
+
+<div id="org1148a73" class="figure">
+<p><img src="./assets/xilinx.png" alt="xilinx.png" style="margin-left: auto; margin-right: auto; max-width: 40%;" />
+</p>
+</div>
+
+<p>
+Essentiellement des outils propriétaires associés au constructeur:
+</p>
+<ul>
+<li>Vivado (Xilinx)</li>
+<li>Quartus (Intel)</li>
+<li>&#x2026;</li>
+
+</ul>
+<p>
+Mais certaines alternatives open-source voient le jour:
+</p>
+<ul>
+<li>Yosys Open SYnthesis Suite</li>
+<li>F4PGA (qui intègre Yosys en mode le GCC du FPGA)</li>
+
+</ul>
+<aside class="notes">
+<p>
+On parlera plus de synthétisation.
+S'effectue en plusieures phases dont le placement, route, synthese, etc.
+</p>
+
+</aside>
+</section>
+<section id="slide-org256c983">
+<h3 id="org256c983">ET LES TESTS?</h3>
+<p>
+Mais je croyais que "tester c'est douter"?
+</p>
+<p style="color: red; font-size: 2em;" class="fragment (appear)">
+Douter sur du hardware c'est juste du suicide!
+</p>
+<aside class="notes">
+<p>
+Pas de debugger, etc
+</p>
+
+</aside>
+</section>
+<section id="slide-orge8a260a">
+<h3 id="orge8a260a">ET LES TESTS?</h3>
+<p>
+Plusieurs types de tests sont applicables:
+</p>
+<ul>
+<li>Formel (avec par exemple symbiosys)</li>
+
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-verilog"><span style="color: #bc6ec5;">`ifdef</span> FORMAL
+  <span style="color: #4f97d7; font-weight: bold;">initial</span> <span style="color: #4f97d7; font-weight: bold;">assume</span> <span style="color: #4f97d7;">(</span>RST<span style="color: #4f97d7;">)</span>;
+
+  <span style="color: #ce537a; font-weight: bold;">reg</span> f_past_valid;
+  <span style="color: #4f97d7; font-weight: bold;">initial</span> f_past_valid = <span style="color: #a45bad;">1</span>'b0;
+  <span style="color: #4f97d7; font-weight: bold;">always</span> <span style="color: #ce537a; font-weight: bold;">@</span><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">posedge</span> clk<span style="color: #4f97d7;">)</span> f_past_valid &lt;= <span style="color: #a45bad;">1</span>'b1;   
+<span style="color: #bc6ec5;">`endif</span>
+</pre>
+</div>
+<ul>
+<li>Unitaire: Simulation + tests signal (avec un couple de test bench + une analyse des resultats &lt;=&gt; par exemple avec Cocotb)</li>
+
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-python"><span style="color: #ce537a; font-weight: bold;">@cocotb.test</span><span style="color: #4f97d7;">()</span>
+<span style="color: #4f97d7; font-weight: bold;">async def</span> <span style="color: #bc6ec5; font-weight: bold;">check_instr_decoder_decode</span><span style="color: #4f97d7;">(</span>dut<span style="color: #4f97d7;">)</span>:
+    <span style="color: #9f8766;">""" Test that instr is decoded successfully """</span>
+    <span style="color: #7590db;">clock</span> = Clock<span style="color: #4f97d7;">(</span>dut.clk, <span style="color: #a45bad;">10</span>, units=<span style="color: #2d9574;">"us"</span><span style="color: #4f97d7;">)</span>
+    cocotb.start_soon<span style="color: #4f97d7;">(</span>clock.start<span style="color: #bc6ec5;">()</span><span style="color: #4f97d7;">)</span>
+...
+</pre>
+</div>
+<ul>
+<li>Materiel: leds, debugger chip, etc</li>
+
+</ul>
+</section>
+<section id="slide-orgc7cd532">
+<h3 id="orgc7cd532">ET ça SE SIMULE TOUT ça?</h3>
+<p>
+Plusieurs simulateurs existent, personnellement j'ai beaucoup aimé Verilator:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-cpp"><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">argc</span>, <span style="color: #ce537a; font-weight: bold;">char</span> **<span style="color: #7590db;">argv</span><span style="color: #4f97d7;">)</span>
+<span style="color: #4f97d7;">{</span>
+   <span style="color: #a45bad;">Verilated</span>::commandArgs<span style="color: #bc6ec5;">(</span>argc, argv<span style="color: #bc6ec5;">)</span>;
+   tb = <span style="color: #4f97d7; font-weight: bold;">new</span> <span style="color: #ce537a; font-weight: bold;">BLINKY_TB</span><span style="color: #bc6ec5;">()</span>;
+
+   tb-&gt;reset<span style="color: #bc6ec5;">()</span>;
+
+   <span style="color: #4f97d7; font-weight: bold;">while</span> <span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">!</span>tb-&gt;done<span style="color: #2d9574;">()</span><span style="color: #bc6ec5;">)</span>
+   <span style="color: #bc6ec5;">{</span>
+     tb-&gt;tick<span style="color: #2d9574;">()</span>;
+   <span style="color: #bc6ec5;">}</span>
+
+   tb-&gt;close<span style="color: #bc6ec5;">()</span>;
+   exit<span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">0</span><span style="color: #bc6ec5;">)</span>;
+<span style="color: #4f97d7;">}</span>
+</pre>
+</div>
+<p>
+Mais il en existe d'autres (propriétaires ou non):
+</p>
+<ul>
+<li>iCarus verilog</li>
+<li>Verilog-XL</li>
+<li>ModelSIM</li>
+<li>&#x2026;</li>
+
+</ul>
+</section>
 </section>
 <section>
-<section id="slide-org972a54d">
-<h2 id="org972a54d">DEMO: BLINKY</h2>
+<section id="slide-org7c9744b">
+<h2 id="org7c9744b">DEMO: BLINKY</h2>
 <p>
 Ici nous allons juste implémenter un module blinky similaire à celui-ci et l'uploader sur notre FPGA.
 </p>
@@ -239,12 +404,34 @@ Pour le "compiler" nous allons utiliser la suite fournie avec F4PGA (le GCC du F
 </pre>
 </div>
 </section>
+<section id="slide-org8c62fd7">
+<h3 id="org8c62fd7">DEMO: BLINKY</h3>
+
+<div id="orgcc8a6d4" class="figure">
+<p><img src="./assets/blinky-schema.png" alt="blinky-schema.png" />
+</p>
+</div>
+</section>
+<section id="slide-org0751fc0">
+<h3 id="org0751fc0">DEMO: BLINKY</h3>
+
+<div id="org4547caa" class="figure">
+<p><img src="./assets/syth-final-blinky.png" alt="syth-final-blinky.png" style="margin-left: auto; margin-right: auto; max-width: 95%;" />
+</p>
+</div>
+<aside class="notes">
+<p>
+FDRE: FDRE is a D-type flip-flop with an active-high clock enable
+</p>
+
+</aside>
+</section>
 </section>
 <section>
-<section id="slide-org242365a">
-<h2 id="org242365a">DEMO</h2>
+<section id="slide-org659f425">
+<h2 id="org659f425">DEMO</h2>
 
-<div id="org6160a2c" class="figure">
+<div id="org9b15398" class="figure">
 <p><object type="image/svg+xml" data="./assets/Programming-pana.svg" class="questions">
 Sorry, your browser does not support SVG.</object>
 </p>
@@ -252,16 +439,16 @@ Sorry, your browser does not support SVG.</object>
 </section>
 </section>
 <section>
-<section id="slide-orgd19ad19">
-<h2 id="orgd19ad19">CPU?</h2>
+<section id="slide-org61169eb">
+<h2 id="org61169eb">CPU?</h2>
 
-<div id="orgbc62542" class="figure">
+<div id="org32d6784" class="figure">
 <p><img src="./assets/simple-CPU.png" alt="simple-CPU.png" style="width: 40%;" />
 </p>
 </div>
 </section>
-<section id="slide-org8282948">
-<h3 id="org8282948">RISC vs CISC</h3>
+<section id="slide-org1efe324">
+<h3 id="org1efe324">RISC vs CISC</h3>
 <ul>
 <li>Taille variable ou non des instructions.</li>
 <li>Complexité des instructions.</li>
@@ -307,28 +494,58 @@ Sorry, your browser does not support SVG.</object>
 </section>
 </section>
 <section>
-<section id="slide-org961795a">
-<h2 id="org961795a">DEMO: Un CPU RISC</h2>
+<section id="slide-org729f1c1">
+<h2 id="org729f1c1">DEMO: Un CPU RISC</h2>
 <p>
-Dans cette demo nous utiliserons un CPU RISC implémentant la norme RV32i (la plus simple) que j'ai développé pour l'occasion :)
+Dans cette demo nous utiliserons un CPU RISC-V avec le jeu d'instruction RV32i (la plus simple) que j'ai développé pour l'occasion :)
 </p>
 <ul>
 <li>CPU 32 bits.</li>
 <li>Pas de supports des nombres flottants.</li>
 <li>SOC (System on chip) avec des LEDs, une mémoire RAM de 4k, de l'UART (port série).</li>
 <li>Utilisation d'un bus Wishbone pour l'intercommunication entre les composants.</li>
+<li>Un firmware minimal permettant d'executer d'autes programmes.</li>
 <li>Loin d'être perfomant!</li>
 <li>Il y a plus que surements des bugs!</li>
-<li>Mais on va voir ensemble que ça marche :)</li>
+<li>Mais on va voir ensemble que ça marche et comment j'y suis arrivé :)</li>
 
 </ul>
 </section>
+<section id="slide-orge79d7be">
+<h3 id="orge79d7be">DEMO: Un CPU RISC</h3>
+
+<div id="org4ad2920" class="figure">
+<p><img src="./assets/cpu-chip-schematic.png" alt="cpu-chip-schematic.png" style="margin-left: auto; margin-right: auto; max-width: 25%; margin-top: auto; margin-bottom: auto;" />
+</p>
+</div>
+
+<div id="org20138ad" class="figure">
+<p><img src="./assets/cpu-schematic.png" alt="cpu-schematic.png" style="margin-left: auto; margin-right: auto; max-width: 95%; margin-top: auto; margin-bottom: auto;" />
+</p>
+</div>
+</section>
+<section id="slide-org9d81715">
+<h3 id="org9d81715">DEMO: Un CPU RISC</h3>
+
+<div id="orgd8192ae" class="figure">
+<p><img src="./assets/cpu-implem.png" alt="cpu-implem.png" style="margin-left: auto; margin-right: auto; max-width: 60%; margin-top: auto; margin-bottom: auto;" />
+</p>
+</div>
+<aside class="notes">
+<p>
+En haut a gauche: register file
+En haut à droite: instruction decoder
+Au millieu à gauche: ALU
+</p>
+
+</aside>
+</section>
 </section>
 <section>
-<section id="slide-org7612b56">
-<h2 id="org7612b56">DEMO</h2>
+<section id="slide-org167b5ae">
+<h2 id="org167b5ae">DEMO</h2>
 
-<div id="orgd4b429a" class="figure">
+<div id="orgd47cc23" class="figure">
 <p><object type="image/svg+xml" data="./assets/Programming-pana.svg" class="questions">
 Sorry, your browser does not support SVG.</object>
 </p>
@@ -336,10 +553,10 @@ Sorry, your browser does not support SVG.</object>
 </section>
 </section>
 <section>
-<section id="slide-org1c160d8">
-<h2 id="org1c160d8">MERCI</h2>
+<section id="slide-org5d46ef3">
+<h2 id="org5d46ef3">MERCI</h2>
 
-<div id="org60c0b19" class="figure">
+<div id="orgb8c438d" class="figure">
 <p><object type="image/svg+xml" data="./assets/Questions-pana.svg" class="questions">
 Sorry, your browser does not support SVG.</object>
 </p>

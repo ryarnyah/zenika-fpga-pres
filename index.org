@@ -33,13 +33,13 @@
 ** NI DE ça!
   #+ATTR_HTML: :class questions
   [[./assets/breadboard_w_arduino_sm.jpg]]
-* FPGA?
+* FPGA (Field Programmable Gate Array)?
   #+ATTR_HTML: :class questions
   [[./assets/Xilinx_XC7A35T.jpg]]
 ** USE-CASES (un subset)
-   #+ATTR_HTML: :style max-width: 20%;
+   #+ATTR_HTML: :style max-width: 20%; margin-left: auto; margin-right: auto;
    [[./assets/FPGAs-Icon_4x.png]]
-   FPGA (Field Programmable Gate Array)
+
    #+ATTR_REVEAL: :frag (appear)
    * Prototypage microcontroleur
    * Composant à usage spécifique (co-processeur AES, compression vidéo, faible production de composants, etc)
@@ -53,11 +53,11 @@
 ** ASICS VS FPGA
    ASICS (Application Specific Integrated Circuit)
    #+ATTR_REVEAL: :frag (appear)
+   * Votre CPU en est un.
    * Plus couteux <-> nécessite souvent une chaine de production dédiée.
    * Moins couteux à l'unité.
    * Upgrade impossible ou doit être pris en compte lors du design <=> implique une logique similaire aux FPGAs.
    * Plus perfomants (pas de LUTs, placement efficace, etc).
-   * Votre CPU en est un.
    #+BEGIN_NOTES
    Si vous regardez un peu litérature vous vérez surement le terme ASICS...
    Un composant existant reproduit avec un FPGA sera toujours moins cher que le FPGA necessaire.
@@ -70,10 +70,12 @@
    * Utilisation d'un matériel "cheap"
    * Permet de reproduire les "bugs" nécessaires à certains jeux.
 * ET C'EST QUOI UN SIGNAL?
-** SIGNAL
-   #+ATTR_HTML: :style max-width: 20%;
+   #+ATTR_HTML: :style max-width: 90%;
    [[./assets/sample_sentence-1.png]]
 ** A CLOCK? LIKE MY WATCH?
+   [[./assets/GTKwave.png]]
+** A CLOCK? LIKE MY WATCH?
+   [[./assets/domain.png]]
 * FPGA ARCHITECTURE
   [[./assets/Figure-A-A-three-input-lookup-table-3-LUT-FPGA-A-programmable-interconnect-wires-the.png]]
   #+BEGIN_NOTES
@@ -96,6 +98,75 @@
   | 0 | 1 |       0 |       1 |       1 |
   | 1 | 0 |       0 |       1 |       1 |
   | 1 | 1 |       1 |       1 |       0 |
+** COMPILATION?
+   #+ATTR_HTML: :style margin-left: auto; margin-right: auto; max-width: 40%;
+   [[./assets/xilinx.png]]
+
+   Essentiellement des outils propriétaires associés au constructeur:
+   * Vivado (Xilinx)
+   * Quartus (Intel)
+   * ...
+   Mais certaines alternatives open-source voient le jour:
+   * Yosys Open SYnthesis Suite
+   * F4PGA (qui intègre Yosys en mode le GCC du FPGA)
+   #+BEGIN_NOTES
+   On parlera plus de synthétisation.
+   S'effectue en plusieures phases dont le placement, route, synthese, etc.
+   #+END_NOTES
+** ET LES TESTS?
+   Mais je croyais que "tester c'est douter"?
+   #+ATTR_REVEAL: :frag (appear)
+   #+ATTR_HTML: :style color: red; font-size: 2em;
+   Douter sur du hardware c'est juste du suicide!
+   #+BEGIN_NOTES
+   Pas de debugger, etc
+   #+END_NOTES
+** ET LES TESTS?
+   Plusieurs types de tests sont applicables:
+   * Formel (avec par exemple symbiosys)
+   #+BEGIN_SRC verilog
+   `ifdef FORMAL
+     initial assume (RST);
+   
+     reg f_past_valid;
+     initial f_past_valid = 1'b0;
+     always @(posedge clk) f_past_valid <= 1'b1;   
+   `endif
+   #+END_SRC
+   * Unitaire: Simulation + tests signal (avec un couple de test bench + une analyse des resultats <=> par exemple avec Cocotb)
+   #+BEGIN_SRC python
+     @cocotb.test()
+     async def check_instr_decoder_decode(dut):
+         """ Test that instr is decoded successfully """
+         clock = Clock(dut.clk, 10, units="us")
+         cocotb.start_soon(clock.start())
+     ...
+   #+END_SRC
+   * Materiel: leds, debugger chip, etc
+** ET ça SE SIMULE TOUT ça?
+   Plusieurs simulateurs existent, personnellement j'ai beaucoup aimé Verilator:
+   #+BEGIN_SRC cpp
+     int main(int argc, char **argv)
+     {
+        Verilated::commandArgs(argc, argv);
+        tb = new BLINKY_TB();
+
+        tb->reset();
+
+        while (!tb->done())
+        {
+          tb->tick();
+        }
+
+        tb->close();
+        exit(0);
+     }
+   #+END_SRC
+   Mais il en existe d'autres (propriétaires ou non):
+   * iCarus verilog
+   * Verilog-XL
+   * ModelSIM
+   * ...
 * DEMO: BLINKY
   Ici nous allons juste implémenter un module blinky similaire à celui-ci et l'uploader sur notre FPGA.
 
@@ -114,9 +185,17 @@
          assign LEDS = counter;
     endmodule
   #+END_SRC
+** DEMO: BLINKY
+   [[./assets/blinky-schema.png]]
+** DEMO: BLINKY
+   #+ATTR_HTML: :style margin-left: auto; margin-right: auto; max-width: 95%;
+   [[./assets/syth-final-blinky.png]]
+   #+BEGIN_NOTES
+   FDRE: FDRE is a D-type flip-flop with an active-high clock enable
+   #+END_NOTES
 * DEMO
    #+ATTR_HTML: :class questions
-  [[./assets/Programming-pana.svg]]
+   [[./assets/Programming-pana.svg]]
 * CPU?
    #+ATTR_HTML: :style width: 40%;
   [[./assets/simple-CPU.png]]
@@ -137,9 +216,23 @@
    * Pas de supports des nombres flottants.
    * SOC (System on chip) avec des LEDs, une mémoire RAM de 4k, de l'UART (port série).
    * Utilisation d'un bus Wishbone pour l'intercommunication entre les composants.
+   * Un firmware minimal permettant d'executer d'autes programmes.
    * Loin d'être perfomant!
    * Il y a plus que surements des bugs!
    * Mais on va voir ensemble que ça marche et comment j'y suis arrivé :)
+** DEMO: Un CPU RISC
+   #+ATTR_HTML: :style margin-left: auto; margin-right: auto; max-width: 25%; margin-top: auto; margin-bottom: auto;
+   [[./assets/cpu-chip-schematic.png]]
+   #+ATTR_HTML: :style margin-left: auto; margin-right: auto; max-width: 95%; margin-top: auto; margin-bottom: auto;
+   [[./assets/cpu-schematic.png]]
+** DEMO: Un CPU RISC
+   #+ATTR_HTML: :style margin-left: auto; margin-right: auto; max-width: 60%; margin-top: auto; margin-bottom: auto;
+   [[./assets/cpu-implem.png]]
+   #+BEGIN_NOTES
+   En haut a gauche: register file
+   En haut à droite: instruction decoder
+   Au millieu à gauche: ALU
+   #+END_NOTES
 * DEMO
    #+ATTR_HTML: :class questions
    [[./assets/Programming-pana.svg]]
