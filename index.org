@@ -25,20 +25,31 @@
   @ryarnyah
   #+ATTR_HTML: :style text-align: center
   "Du Java mais pas que..."
+  #+ATTR_HTML: :style text-align: center
+  Par contre je ne suis pas un developpeur hardware non plus!
+** JE NE VAIS PAS VOUS PARLER DE ça!
+  #+ATTR_HTML: :class questions
+  [[./assets/cold-solder-joint2.jpg]]
+** NI DE ça!
+  #+ATTR_HTML: :class questions
+  [[./assets/breadboard_w_arduino_sm.jpg]]
 * FPGA?
   #+ATTR_HTML: :class questions
-  [[./assets/FPGAs-Icon_4x.png]]
-** USE-CASES
+  [[./assets/Xilinx_XC7A35T.jpg]]
+** USE-CASES (un subset)
+   #+ATTR_HTML: :style max-width: 20%;
+   [[./assets/FPGAs-Icon_4x.png]]
    FPGA (Field Programmable Gate Array)
    #+ATTR_REVEAL: :frag (appear)
    * Prototypage microcontroleur
-   * Composants évolutifs (compression vidéo, etc)
-   * Faible production de composants
-   * Composant à usage spécifique (co-processeur AES, etc)
-   * Une très grande quantité d'IO <-> parralellisation de traitements possible.
+   * Composant à usage spécifique (co-processeur AES, compression vidéo, faible production de composants, etc)
+   * Une très grande quantité d'IO <=> parralellisation de traitements possible.
    * Utilisation dans des contextes spécifiques d'IOT (microcontroleur avec TCP intégré)
    * Cartes réseau TLS (oui ça existe)
    * Processeur spécifique Java (Oui il y en a aussi)
+   #+BEGIN_NOTES
+   Dans le cas d'une production faible => Trop couteux de faire de l'ASICS.
+   #+END_NOTES
 ** ASICS VS FPGA
    ASICS (Application Specific Integrated Circuit)
    #+ATTR_REVEAL: :frag (appear)
@@ -50,15 +61,19 @@
    #+BEGIN_NOTES
    Si vous regardez un peu litérature vous vérez surement le terme ASICS...
    Un composant existant reproduit avec un FPGA sera toujours moins cher que le FPGA necessaire.
+   Upgrade impossible => Dans ces cas la on trouvera souvent un co-processeur FPGA.
    #+END_NOTES
-** Exemple de projets FPGA: MisTER
+** Pour les accros du retro-gaming: MisTER
    #+ATTR_HTML: :class questions
    [[./assets/MISTER_FPGA_Logo.png]]
    * Retro-gaming reproduisants les CPUs/GPUs/FPUs
    * Utilisation d'un matériel "cheap"
    * Permet de reproduire les "bugs" nécessaires à certains jeux.
-* A CLOCK? LIKE MY WATCH?
+* ET C'EST QUOI UN SIGNAL?
 ** SIGNAL
+   #+ATTR_HTML: :style max-width: 20%;
+   [[./assets/sample_sentence-1.png]]
+** A CLOCK? LIKE MY WATCH?
 * FPGA ARCHITECTURE
   [[./assets/Figure-A-A-three-input-lookup-table-3-LUT-FPGA-A-programmable-interconnect-wires-the.png]]
   #+BEGIN_NOTES
@@ -117,7 +132,7 @@
    | SPARC                                   |                                         |
    | ARM                                     |                                         |
 * DEMO: Un CPU RISC
-   Dans cette demo nous utiliserons un CPU RISC implémentant la norme RV32i (la plus simple) que j'ai développé pour l'occasion :)
+   Dans cette demo nous utiliserons un CPU RISC-V avec le jeu d'instruction RV32i (la plus simple) que j'ai développé pour l'occasion :)
    * CPU 32 bits.
    * Pas de supports des nombres flottants.
    * SOC (System on chip) avec des LEDs, une mémoire RAM de 4k, de l'UART (port série).
