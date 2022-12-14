@@ -263,5 +263,14 @@
 * MERCI
    #+ATTR_HTML: :class questions
   [[./assets/Questions-pana.svg]]
-* LIENS & REFERENCES
+* Pour aller plus loin!
+  #+ATTR_HTML: :style margin: auto; display: block; max-width: 23%;
+  [[./assets/qrcode.png]]
 
+  * Nandland: https://nandland.com/
+  * From Blinker to RISCV: https://github.com/BrunoLevy/learn-fpga/tree/master/FemtoRV/TUTORIALS/FROM_BLINKER_TO_RISCV
+  * ZipCPU (blog + CPU): https://zipcpu.com/
+  * The SErial RISC-V CPU: https://github.com/olofk/serv
+  * Verilator: https://www.veripool.org/verilator/
+  * F4PGA: https://f4pga.org/
+  * RISC-V: https://riscv.org/
