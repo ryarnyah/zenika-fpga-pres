@@ -36,7 +36,7 @@
 * FPGA (Field Programmable Gate Array)?
   #+ATTR_HTML: :class questions
   [[./assets/Xilinx_XC7A35T.jpg]]
-** USE-CASES (un subset)
+** USE-CASES (subset)
    #+ATTR_HTML: :style max-width: 20%; margin-left: auto; margin-right: auto;
    [[./assets/FPGAs-Icon_4x.png]]
 
@@ -44,8 +44,9 @@
    * Prototypage microcontroleur
    * Composant à usage spécifique (co-processeur AES, compression vidéo, faible production de composants, etc)
    * Une très grande quantité d'IO <=> parralellisation de traitements possible.
+   #+ATTR_REVEAL: :frag ~none~
    * Utilisation dans des contextes spécifiques d'IOT (microcontroleur avec TCP intégré)
-   * Cartes réseau TLS (oui ça existe)
+   * Cartes réseau TLS (Oui ça existe)
    * Processeur spécifique Java (Oui il y en a aussi)
    * Acceleration de certaines partie de code (ex en Java avec TornadoVM)
    * Pourquoi pas un CPU orienté WASM? :)
@@ -56,7 +57,8 @@
    ASICS (Application Specific Integrated Circuit)
    #+ATTR_REVEAL: :frag (appear)
    * Votre CPU en est un.
-   * Plus couteux <-> nécessite souvent une chaine de production dédiée.
+   #+ATTR_REVEAL: :frag ~none~
+   * Plus couteux <=> nécessite souvent une chaine de production dédiée.
    * Moins couteux à l'unité.
    * Upgrade impossible ou doit être pris en compte lors du design <=> implique une logique similaire aux FPGAs.
    * Plus perfomants (pas de LUTs, placement efficace, etc).
@@ -74,11 +76,9 @@
 * ET C'EST QUOI UN SIGNAL?
    #+ATTR_HTML: :style max-width: 90%;
    [[./assets/sample_sentence-1.png]]
-** A CLOCK? LIKE MY WATCH?
-   [[./assets/GTKwave.png]]
-** A CLOCK? LIKE MY WATCH?
+** ET L'HORLOGE? COMME MA MONTRE?
    [[./assets/domain.png]]
-* FPGA ARCHITECTURE
+* ARCHITECTURE FPGA
   [[./assets/Figure-A-A-three-input-lookup-table-3-LUT-FPGA-A-programmable-interconnect-wires-the.png]]
   #+BEGIN_NOTES
   * Composant stateless <=> necessite une mémoire flash et une reprogrammation à chaque boot. => Bitstream.
@@ -86,34 +86,35 @@
   * Implémentation spcifique au constructeur. bitstream aussi spécifique.
   * Utilisation des outils du constructeur pour le programmer (Xilinx, etc) => 130 Go necessaires!!!
   #+END_NOTES
-** LUT
+** 🔍LUT (LOOK UP TABLES)
    [[./assets/ljnz7.png]]
    * Composant permettant de reproduire le comportement de plusieurs éléments dont des portes AND, OR, etc.
    * Coeur même de votre FPGA.
    #+ATTR_HTML: :style margin-left: auto; margin-right: auto;
-   | A | B | A AND B | A  OR B | A XOR B |
-   |---+---+---------+---------+---------|
-   | 0 | 0 |       0 |       0 |       0 |
-   | 0 | 1 |       0 |       1 |       1 |
-   | 1 | 0 |       0 |       1 |       1 |
-   | 1 | 1 |       1 |       1 |       0 |
-   #+BEGIN_NOTES
+   | A | B | \rightarrow{} | A AND B | A  OR B | A XOR B |
+   |---+---+---------------+---------+---------+---------|
+   | 0 | 0 |               |       0 |       0 |       0 |
+   | 0 | 1 |               |       0 |       1 |       1 |
+   | 1 | 0 |               |       0 |       1 |       1 |
+   | 1 | 1 |               |       1 |       1 |       0 |
+#+TBLFM: $3=>
+#+BEGIN_NOTES
    D-type flip-flop:
    #+END_NOTES
-** MUX
+** 🔍MUX (MULTIPLEXER)
    [[./assets/multiplexer.png]]
    * Permet de selectionner des Inputs en fonction d'un signal.
-** D Flip-flop
+** 🔍D Flip-flop
    #+ATTR_HTML: :style margin-left: auto; margin-right: auto; max-width: 20%;
    [[./assets/flip-flop.png]]
    * Permet de stocker des données.
    #+ATTR_HTML: :style margin-left: auto; margin-right: auto;
-   | CLK | D | Q                 | ~Q                |
-   |-----+---+-------------------+-------------------|
-   |   0 | 0 | Pas de changement | Pas de changement |
-   |   0 | 1 | Pas de changement | Pas de changement |
-   |   1 | 0 | 0                 | 1                 |
-   |   1 | 1 | 1                 | 0                 |
+   | CLK | D | \rightarrow{} | Q                 | ~Q                |
+   |-----+---+---------------+-------------------+-------------------|
+   |   0 | 0 |               | Pas de changement | Pas de changement |
+   |   0 | 1 |               | Pas de changement | Pas de changement |
+   |   1 | 0 |               | 0                 | 1                 |
+   |   1 | 1 |               | 1                 | 0                 |
 ** COMPILATION?
    #+ATTR_HTML: :style margin-left: auto; margin-right: auto; max-width: 40%;
    [[./assets/xilinx.png]]
@@ -163,7 +164,7 @@
    #+END_SRC
    * Materiel: leds, debugger chip, etc
 ** ET ça SE SIMULE TOUT ça?
-   Plusieurs simulateurs existent, personnellement j'ai beaucoup aimé Verilator:
+   Plusieurs simulateurs existent, notamment Verilator (C++) qui permet d'avoir un simulateur "rapide":
    #+BEGIN_SRC cpp
      int main(int argc, char **argv)
      {
@@ -187,9 +188,8 @@
    * ModelSIM
    * ...
 * DEMO: BLINKY
-  Ici nous allons juste implémenter un module blinky similaire à celui-ci et l'uploader sur notre FPGA.
+  Dans cette demo nous allons voir un module blinky similaire à celui-ci et l'uploader sur le FPGA.
 
-  Pour le "compiler" nous allons utiliser la suite fournie avec F4PGA (le GCC du FPGA).
   #+BEGIN_SRC verilog
      module top (
          input logic CLK,
@@ -204,9 +204,12 @@
          assign LEDS = counter;
     endmodule
   #+END_SRC
-** DEMO: BLINKY
+  #+BEGIN_NOTES
+  Pour le "compiler" nous allons utiliser la suite fournie avec F4PGA (le GCC du FPGA).
+  #+END_NOTES
+** DEMO: BLINKY (Schéma)
    [[./assets/blinky-schema.png]]
-** DEMO: BLINKY
+** DEMO: BLINKY (Compilé)
    #+ATTR_HTML: :style margin-left: auto; margin-right: auto; max-width: 95%;
    [[./assets/syth-final-blinky.png]]
    #+BEGIN_NOTES
@@ -230,21 +233,23 @@
    | SPARC                                   |                                         |
    | ARM                                     |                                         |
 * DEMO: Un CPU RISC
-   Dans cette demo nous utiliserons un CPU RISC-V avec le jeu d'instruction RV32i (la plus simple) que j'ai développé pour l'occasion :)
+   Dans cette demo nous utiliserons un CPU RISC-V avec le jeu d'instruction RV32i (le plus simple) développé pour l'occasion :)
    * CPU 32 bits.
    * Pas de supports des nombres flottants.
    * SOC (System on chip) avec des LEDs, une mémoire RAM de 4k, de l'UART (port série).
-   * Utilisation d'un bus Wishbone pour l'intercommunication entre les composants.
-   * Un firmware minimal permettant d'executer d'autes programmes.
+   * Un firmware minimal permettant d'executer d'autres programmes.
    * Loin d'être perfomant!
    * Il y a plus que surements des bugs!
-   * Mais on va voir ensemble que ça marche et comment j'y suis arrivé :)
-** DEMO: Un CPU RISC
+   * Mais on va voir ensemble que ça marche!
+   #+BEGIN_NOTES
+   Utilisation d'un bus Wishbone pour l'intercommunication entre les composants.
+   #+END_NOTES
+** DEMO: Un CPU RISC (Schéma)
    #+ATTR_HTML: :style margin-left: auto; margin-right: auto; max-width: 25%; margin-top: auto; margin-bottom: auto;
    [[./assets/cpu-chip-schematic.png]]
    #+ATTR_HTML: :style margin-left: auto; margin-right: auto; max-width: 95%; margin-top: auto; margin-bottom: auto;
    [[./assets/cpu-schematic.png]]
-** DEMO: Un CPU RISC
+** DEMO: Un CPU RISC (Compilé)
    #+ATTR_HTML: :style margin-left: auto; margin-right: auto; max-width: 60%; margin-top: auto; margin-bottom: auto;
    [[./assets/cpu-implem.png]]
    #+BEGIN_NOTES
@@ -258,3 +263,5 @@
 * MERCI
    #+ATTR_HTML: :class questions
   [[./assets/Questions-pana.svg]]
+* LIENS & REFERENCES
+
